@@ -1,25 +1,20 @@
 package fr.iut.valence.tpdd.projet.abalone;
-/** Player
- * 
- * @author blouinm and bouhassa
+
+/**
+ * Player represented by a number and a color.
  *
+ * @author blouinm and bouhassa
+ * @version 1.0
  */
-public class Player{
-	
-	/**The number of the player. 
-	 * 
-	 */
-	private final int playerNumber;
-	
-	/**The color of the player.
-	 * Black or White
-	 */
-	private final Color PlayerColor;
-	
-	public Player(int number, Color color){
-		this.playerNumber = number;
-		this.PlayerColor = color;
-	}
-	
-	
+public class Player {
+    /** Player's number. */
+    private final int   playerNumber;
+    /** Player's color (black or white). */
+    private final Color PlayerColor;
+
+    /* TODO JAVADOC. */
+    public Player(int number, Color color) {
+        this.playerNumber = number;
+        this.PlayerColor = color;
+    }
 }

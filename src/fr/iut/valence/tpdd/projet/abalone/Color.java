@@ -1,6 +1,7 @@
 package fr.iut.valence.tpdd.projet.abalone;
 
-/** Colors of ball. 
+/**
+ * Colors of ball.
  *
  * @author blouinm and bouhassa
  * @version 1.0
