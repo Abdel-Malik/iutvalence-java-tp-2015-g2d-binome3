@@ -1,4 +1,4 @@
-package fr.iut.valence.td2d.projet.abalone;
+package fr.iut.valence.tpdd.projet.abalone;
 
 /* TODO Pourquoi cette intermédiaire à Couleur ? */
 
@@ -10,12 +10,12 @@ package fr.iut.valence.td2d.projet.abalone;
  */
 public class Boule {
     /* TODO JAVADOC. */
-    private final Couleur laCouleur;
+    private final Color laCouleur;
 
     /**
      * Création d'une boule de couleur souhaitée.
      */
-    public Boule(Couleur laCouleurVoulue) {
+    public Boule(Color laCouleurVoulue) {
         this.laCouleur = laCouleurVoulue;
     }
 
@@ -24,7 +24,7 @@ public class Boule {
      *
      * @return la couleur de la boule
      */
-    public Couleur obtenirCouleur() {
+    public Color obtenirCouleur() {
         return this.laCouleur;
     }
 

@@ -1,4 +1,4 @@
-package fr.iut.valence.td2d.projet.abalone;
+package fr.iut.valence.tpdd.projet.abalone;
 
 /* TODO JAVADOC. */
 public class Deplacement {
