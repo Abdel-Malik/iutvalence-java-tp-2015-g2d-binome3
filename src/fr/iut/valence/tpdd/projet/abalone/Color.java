@@ -12,5 +12,7 @@ public enum Color {
     /** Black ball. */
     BLACK,
     /** Any ball. */
-    OTHER;
+    OTHER,
+    /** a forbidden case */
+    VOID;
 }

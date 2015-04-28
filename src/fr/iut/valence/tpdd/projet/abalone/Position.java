@@ -8,37 +8,34 @@ package fr.iut.valence.tpdd.projet.abalone;
  * @see Case
  */
 public class Position {
-    /* TODO Translate. */
+
     /** Position in axe-X of the point. */
-    private final int abscisse;
-    /* TODO Translate. */
+    private final int abscissa;
+
     /** Position in axe-Y of the point. */
-    private final int ordonnee;
+    private final int ordinate;
 
     /** Create a new position. */
     public Position(int x, int y) {
-        this.abscisse = x;
-        this.ordonnee = y;
+        this.abscissa = x;
+        this.ordinate = y;
     }
 
-    /* TODO Translate. */
-
     /**
-     * Return the abscisse.
+     * Return the abscissa.
      *
-     * @return abscisse of the position.
+     * @return abscissa of the position.
      */
-    public int getAbscisse() {
-        return this.abscisse;
+    public int getAbscissa() {
+        return this.abscissa;
     }
 
-    /* TODO Translate. */
     /**
-     * Return ordonnee.
+     * Return ordinate.
      *
-     * @return ordonnee of the position.
+     * @return ordinate of the position.
      */
-    public int getOrdonnee() {
-        return this.ordonnee;
+    public int getOrdinate() {
+        return this.ordinate;
     }
 }

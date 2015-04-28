@@ -12,7 +12,11 @@ public class Player {
     /** Player's color (black or white). */
     private final Color PlayerColor;
 
-    /* TODO JAVADOC. */
+    /**
+     * Constructor of a player.
+     * @param number The player's number
+     * @param color The color's number
+     */
     public Player(int number, Color color) {
         this.playerNumber = number;
         this.PlayerColor = color;

@@ -22,16 +22,15 @@ public class Game {
 
     /**
      * Create a new party with the players.
-     * TODO Why provide a "board" parameter.
-     *
+	 *
      * @param p1    The first player
      * @param p2    The second player
      * @param board The board of the game
      */
-    public Game(Player p1, Player p2, Board board) {
+    public Game(Player p1, Player p2) {
         this.player1 = p1;
         this.player2 = p2;
-        this.gameBoard = board;
+        this.gameBoard = new Board();
         this.nbTurn = DEFAULT_TURN;
     }
 

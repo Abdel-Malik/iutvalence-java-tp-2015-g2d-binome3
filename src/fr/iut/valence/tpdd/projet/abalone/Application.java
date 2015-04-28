@@ -7,7 +7,10 @@ package fr.iut.valence.tpdd.projet.abalone;
  * @version 1.0
  */
 public class Application {
-    /* TODO JAVADOC. */
+    /**
+     * The 
+     * @param args
+     */
     public static void main(String[] args) {
         System.out.println(new Board());
     }
