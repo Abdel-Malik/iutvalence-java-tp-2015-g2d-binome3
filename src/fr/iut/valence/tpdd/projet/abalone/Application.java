@@ -12,6 +12,11 @@ public class Application {
      * @param args
      */
     public static void main(String[] args) {
-        System.out.println(new Board());
+    	Board board1 = new Board();
+        System.out.println(board1);
+        Player p1 = new Player(1,Color.BLACK,board1);
+        p1.moveBall();
+        
+        
     }
 }

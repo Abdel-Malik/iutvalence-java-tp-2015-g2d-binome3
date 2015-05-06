@@ -11,12 +11,16 @@ public class Game {
     public static final int DEFAULT_TURN = 0;
     /** The first player. */
     private final Player player1;
+    
     /** The second player. */
     private final Player player2;
+    
     /** The board of the game. */
     private final Board  gameBoard;
+    
     /** Number of turn of the game. */
     private       int    nbTurn;
+    
     /** The current player of the game. */
     private       Player currentPlayer;
 
@@ -25,7 +29,6 @@ public class Game {
 	 *
      * @param p1    The first player
      * @param p2    The second player
-     * @param board The board of the game
      */
     public Game(Player p1, Player p2) {
         this.player1 = p1;
