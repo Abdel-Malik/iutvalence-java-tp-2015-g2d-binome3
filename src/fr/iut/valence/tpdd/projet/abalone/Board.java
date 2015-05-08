@@ -61,18 +61,15 @@ public class Board {
 
     @Override
     public String toString() {
-        String representation = "        1  2  3   4  5 \n\n";
+        String representation = "           1  2  3  4  5 \n";
         for (int rowNumber = 0; rowNumber < BOARD_WIDTH; rowNumber++) {
-        	if(rowNumber == 0 || rowNumber == 8) representation+= "     ";
-        	if(rowNumber == 0) representation+= "A   ";
-        	if(rowNumber == 1 || rowNumber == 7) representation+= "    ";
-        	if(rowNumber == 1) representation+= "B   ";
-        	if(rowNumber == 2 || rowNumber == 6) representation+= "   ";
-        	if(rowNumber == 2) representation+="C   ";
-        	if(rowNumber == 3 || rowNumber == 5) representation+= " ";
-        	if(rowNumber == 3) representation+= " D  ";
-        	if(rowNumber == 4) representation+= "    ";
-        	if(rowNumber > 4) representation+= "    ";
+        	if(rowNumber == 0 || rowNumber == 8) representation+= "\n     ";
+        	if(rowNumber == 1 || rowNumber == 7) representation+= "\n    ";
+        	if(rowNumber == 2 || rowNumber == 6) representation+= "\n   ";
+        	if(rowNumber == 3 || rowNumber == 5) representation+= "\n ";
+        	if(rowNumber == 4) representation+= "\n";
+            char lettre = (char)(65+rowNumber);
+            representation += lettre+"   ";
             for (int columnNumber = 0; columnNumber < BOARD_WIDTH; columnNumber++) {
                 if (this.board[rowNumber][columnNumber].getBall() == Color.OTHER) {
                     representation += "( )";
@@ -87,8 +84,6 @@ public class Board {
                     representation += "(B)";
                 }
             }
-            char lettre = (char)(65+rowNumber);
-            representation += "   "+lettre+"\n";
         }
         return representation;
     }
