@@ -18,16 +18,6 @@ public class Board {
         this.boardInitialization();
     }
 
-    /**
-     * Move Ball.
-     *
-     * @param start Case of start
-     * @param end   Case of end
-     */
-    public void moveBall(Position start, Position end) {
-        Position.getCase(end, this).putBall(Position.getCase(start, this).getBall());
-        Position.getCase(start, this).removeBall();
-    }
 
     
     /**
@@ -39,7 +29,7 @@ public class Board {
     private void boardInitialization() {
         for (int rowNumber = 0; rowNumber < BOARD_WIDTH; rowNumber++) {
             for (int columnNumber = 0; columnNumber < BOARD_WIDTH; columnNumber++) {
-                this.board[rowNumber][columnNumber] = new Case(new Position((char) (65+rowNumber), columnNumber));
+                this.board[rowNumber][columnNumber] = new Case(new Position(rowNumber, columnNumber));
                 if(rowNumber < 3){
                 	this.board[rowNumber][columnNumber].putBall(Color.WHITE);
                 }
@@ -55,6 +45,10 @@ public class Board {
         	}
         }
         
+    }
+    
+    public Case getCase(Position posCase){
+    	return this.board[posCase.getAbscissa()][posCase.getOrdinate()];
     }
     
     

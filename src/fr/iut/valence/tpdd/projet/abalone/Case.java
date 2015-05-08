@@ -55,4 +55,8 @@ public class Case {
     public Position getPosition() {
         return this.positionCase;
     }
+    
+    public Case getCase(){
+    	return this;
+    }
 }

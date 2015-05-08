@@ -12,11 +12,18 @@ public class Application {
      * @param args
      */
     public static void main(String[] args) {
-    	Board board1 = new Board();
-        System.out.println(board1);
-        Player p1 = new Player(1,Color.BLACK,board1);
-        p1.moveBall();
-        
+        Player p1 = new Player(1,Color.BLACK);
+        Player p2 = new Player(2,Color.WHITE);
+        Game first = new Game(p1,p2);
+        System.out.println(first.getBoard());
+        //Position testD = new Position(0,0);
+        //Position testA = new Position(5,5);
+        //first.moveBall(testD, testA);
+        //first.getBoard().getCase(testD).removeBall();
+        while(true){
+        first.selectBall();
+        System.out.println(first.getBoard());
+        }
         
     }
 }

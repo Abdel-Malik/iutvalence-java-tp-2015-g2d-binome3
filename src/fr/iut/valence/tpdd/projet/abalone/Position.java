@@ -10,7 +10,7 @@ package fr.iut.valence.tpdd.projet.abalone;
 public class Position {
 
     /** Position in axe-X of the point. */
-    private final char abscissa;
+    private final int abscissa;
 
     /** Position in axe-Y of the point. */
     private final int ordinate;
@@ -20,7 +20,7 @@ public class Position {
      * @param x abscissa
      * @param y ordinate
      */
-    public Position(char x, int y) {
+    public Position(int x, int y) {
         this.abscissa = x;
         this.ordinate = y;
     }
@@ -30,7 +30,7 @@ public class Position {
      *
      * @return abscissa of the position.
      */
-    public char getAbscissa() {
+    public int getAbscissa() {
         return this.abscissa;
     }
 
@@ -49,7 +49,7 @@ public class Position {
      * @param coordinates
      * @return
      */
-    public static Case getCase(Position coordinates, Board board){ //TODO THROWS
+    /*public static Case getCase(Position coordinates, Board board){ //TODO THROWS
     	for(int rowBoardNumber=0;rowBoardNumber < Board.BOARD_WIDTH;rowBoardNumber++){
     		for(int columnBoardNumber=0;columnBoardNumber < Board.BOARD_WIDTH; columnBoardNumber++){
     			if(board.getBoard()[rowBoardNumber][columnBoardNumber].getPosition().equals(coordinates)){
@@ -58,19 +58,6 @@ public class Position {
     		}
     	}
 		return null;
-    }
-
-	@Override
-	public boolean equals(Object obj) { //TODO Redefinir méthode 
-		
-		return super.equals(obj);
-	}
-
-	@Override
-	public int hashCode() { //TODO Redéfinir méthode
-		// TODO Auto-generated method stub
-		return super.hashCode();
-	}
-    
+    }*/
     
 }
