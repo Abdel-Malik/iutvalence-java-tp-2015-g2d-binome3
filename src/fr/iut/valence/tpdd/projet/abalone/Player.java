@@ -15,8 +15,9 @@ public class Player {
 
     /**
      * Constructor of a player.
+     * 
      * @param number The player's number
-     * @param color The color's number
+     * @param color The player's color
      */
     public Player(int number, Color color) {
         this.playerNumber = number;
@@ -24,7 +25,19 @@ public class Player {
     }
     
     /**
-     * @return
+     * to get the number of the player.
+     * @return the player's number
      */
+    public int getPlayerNumber(){
+    	return this.playerNumber;
+    }
+    
+    /**
+     * to get the color of the player.
+     * @return the player's color
+     */
+    public Color getPlayerColor(){
+    	return this.PlayerColor;
+    }
  
 }

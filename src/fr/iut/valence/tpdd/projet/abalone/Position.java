@@ -41,23 +41,12 @@ public class Position {
      */
     public int getOrdinate() {
         return this.ordinate;
+    }   
+    
+    @Override
+    public String toString(){
+    	String representation ="";
+    	representation += "("+(char)(this.getAbscissa()+65)+","+(this.getOrdinate()+1)+") ";
+    	return representation;
     }
-    
-    
-    /**
-     * 
-     * @param coordinates
-     * @return
-     */
-    /*public static Case getCase(Position coordinates, Board board){ //TODO THROWS
-    	for(int rowBoardNumber=0;rowBoardNumber < Board.BOARD_WIDTH;rowBoardNumber++){
-    		for(int columnBoardNumber=0;columnBoardNumber < Board.BOARD_WIDTH; columnBoardNumber++){
-    			if(board.getBoard()[rowBoardNumber][columnBoardNumber].getPosition().equals(coordinates)){
-    				return board.getBoard()[rowBoardNumber][columnBoardNumber];
-    			}
-    		}
-    	}
-		return null;
-    }*/
-    
 }

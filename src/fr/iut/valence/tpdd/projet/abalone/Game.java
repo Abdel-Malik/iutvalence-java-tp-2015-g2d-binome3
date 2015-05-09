@@ -44,6 +44,15 @@ public class Game {
         this.getCoordinatesY = new Scanner(System.in);
     }
 
+    public void changeCurrentPlayer() { //TODO equals
+        if(this.currentPlayer.equals(this.player1)){
+        	this.currentPlayer = player2;
+        }
+        else{
+        	this.currentPlayer = player1;
+        }
+    }
+
     /**
      * Get current player.
      *
@@ -81,23 +90,36 @@ public class Game {
      */
     
     public boolean selectBall(){//TODO throws
+    	Move movePossible;
     	System.out.println("Abscissa choice :");
     	char bX = getCoordinatesX.nextLine().charAt(0);
 
     	System.out.println("Ordinate choice :");
     	int bY = getCoordinatesY.nextInt();
     	
-    	Position begin = new Position((int) (bX-65),bY);
+    	Position begin = new Position((int) (bX-65),(bY-1));
     	
+    	/*System.out.println("Abscissa choice :");
+    	char eX = getCoordinatesX.nextLine().charAt(0);
+
+    	System.out.println("Ordinate choice :");
+    	int eY = getCoordinatesY.nextInt();
+    	
+    	Position end = new Position((int) (eX-65),(eY-1));*/
+    	movePossible = new Move(begin);
+    	
+        for(int a=0;a< movePossible.getMovePos();a++){
+            System.out.println(movePossible.getMovingPossibility(a));
+        }
+        
     	System.out.println("Abscissa choice :");
     	char eX = getCoordinatesX.nextLine().charAt(0);
 
     	System.out.println("Ordinate choice :");
     	int eY = getCoordinatesY.nextInt();
     	
-    	Position end = new Position((int) (eX-65),eY);
-    	
-    	this.moveBall(begin, end);
+    	Position end = new Position((int) (eX-65),(eY-1));
+        this.moveBall(begin, end);
     	return true;
     	
     }

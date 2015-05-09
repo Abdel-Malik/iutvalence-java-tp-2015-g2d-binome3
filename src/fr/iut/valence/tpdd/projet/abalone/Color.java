@@ -15,4 +15,5 @@ public enum Color {
     OTHER,
     /** a forbidden case */
     VOID;
+    
 }
