@@ -28,6 +28,7 @@ public class Game {
     
 	private Scanner getCoordinatesX;
 	private Scanner getCoordinatesY;
+	private Scanner nbBallMoving;
 
     /**
      * Create a new party with the players.
@@ -38,14 +39,19 @@ public class Game {
     public Game(Player p1, Player p2) {
         this.player1 = p1;
         this.player2 = p2;
+        this.currentPlayer = p1;
         this.gameBoard = new Board();
         this.nbTurn = DEFAULT_TURN;
         this.getCoordinatesX = new Scanner(System.in);
         this.getCoordinatesY = new Scanner(System.in);
-    }
+        this.nbBallMoving = new Scanner(System.in);
+        }
 
+    /**
+     * Change current player.
+     */
     public void changeCurrentPlayer() { //TODO equals
-        if(this.currentPlayer.equals(this.player1)){
+        if(this.currentPlayer == this.player1){
         	this.currentPlayer = player2;
         }
         else{
@@ -78,51 +84,74 @@ public class Game {
         this.nbTurn++;
     }
     
+    /**
+     * Get the board of the game
+     * @return the board of the game
+     */
     public Board getBoard(){
     	return this.gameBoard;
     }
     
     /**
-     * Move Ball.
-     *
-     * @param start Case of start
-     * @param end   Case of end
+     * Choose how many balls you want to move. 
+     * @throws WrongBallSelectedException
      */
-    
-    public boolean selectBall(){//TODO throws
-    	Move movePossible;
-    	System.out.println("Abscissa choice :");
-    	char bX = getCoordinatesX.nextLine().charAt(0);
-
-    	System.out.println("Ordinate choice :");
-    	int bY = getCoordinatesY.nextInt();
-    	
-    	Position begin = new Position((int) (bX-65),(bY-1));
-    	
-    	/*System.out.println("Abscissa choice :");
-    	char eX = getCoordinatesX.nextLine().charAt(0);
-
-    	System.out.println("Ordinate choice :");
-    	int eY = getCoordinatesY.nextInt();
-    	
-    	Position end = new Position((int) (eX-65),(eY-1));*/
-    	movePossible = new Move(begin);
-    	
-        for(int a=0;a< movePossible.getMovePos();a++){
-            System.out.println(movePossible.getMovingPossibility(a));
-        }
-        
-    	System.out.println("Abscissa choice :");
-    	char eX = getCoordinatesX.nextLine().charAt(0);
-
-    	System.out.println("Ordinate choice :");
-    	int eY = getCoordinatesY.nextInt();
-    	
-    	Position end = new Position((int) (eX-65),(eY-1));
-        this.moveBall(begin, end);
-    	return true;
-    	
+    public void nbBall() throws WrongBallSelectedException{ 
+    	System.out.println("How many ball would you move ?");
+    	int numberOfBall = nbBallMoving.nextInt();
+    	if(numberOfBall == 1){
+			selectOneBall();
+    	}
     }
+    
+    
+    /**
+     * @throws WrongBallSelectedException
+     */
+    public void selectOneBall() throws WrongBallSelectedException{ 
+    	Move movePossible;
+    	Position begin;
+    	do{
+	    	System.out.println("\n\nAbscissa choice :");
+	    	char bX = getCoordinatesX.nextLine().charAt(0);
+	
+	    	System.out.println("Ordinate choice :");
+	    	int bY = getCoordinatesY.nextInt();
+	    	
+	    	begin = new Position((int) (bX-65),(bY-1));
+	    	
+	    	if(this.gameBoard.getCase(begin).getBall() != this.currentPlayer.getPlayerColor()){
+	    		throw new WrongBallSelectedException();
+	    	}
+	    	
+	
+	    	movePossible = new Move(begin, this);
+	    	
+	    	if(movePossible.getMovePos() == 0){
+	    		System.out.println("Aucun déplacement possible, choisissez une autre boule");
+	    	}
+	    	else{
+	    		System.out.println("Déplacement possible : ");
+	    		for(int a=0;a< movePossible.getMovePos();a++){
+	    			System.out.println(movePossible.getMovingPossibility(a));
+	    		}
+	    	}
+    	}while(movePossible.getMovePos() == 0);
+	    	System.out.println("Abscissa choice :");
+	    	char eX = getCoordinatesX.nextLine().charAt(0);
+	
+	    	System.out.println("Ordinate choice :");
+	    	int eY = getCoordinatesY.nextInt();
+	    	
+	    	Position end = new Position((int) (eX-65),(eY-1));
+	        this.moveBall(begin, end);
+    }
+    
+    /**
+     * Move the ball.
+     * @param start The start position of the ball
+     * @param end The final position of the ball
+     */
     public void moveBall(Position start, Position end) {
     	if(this.gameBoard.getCase(start).getBall() == Color.OTHER){
     		System.out.println("Aucune boule");

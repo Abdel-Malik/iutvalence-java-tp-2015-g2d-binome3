@@ -56,7 +56,13 @@ public class Case {
         return this.positionCase;
     }
     
+    /**
+     * Get Case
+     * @return the case
+     */
     public Case getCase(){
     	return this;
     }
+    
+   
 }

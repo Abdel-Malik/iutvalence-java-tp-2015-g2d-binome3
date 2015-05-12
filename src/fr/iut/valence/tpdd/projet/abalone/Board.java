@@ -47,13 +47,18 @@ public class Board {
         
     }
     
+    /**
+     * Get the Case at the position
+     * @param posCase the position of the Case desired
+     * @return the Case at the position
+     */
     public Case getCase(Position posCase){
     	return this.board[posCase.getAbscissa()][posCase.getOrdinate()];
     }
     
     
-    /**
-     * @return
+    /** Get the Array of Case of this board
+     * @return the board
      */
     public Case[][] getBoard(){
     	return this.board;

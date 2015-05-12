@@ -12,17 +12,26 @@ public class Application {
      * @param args
      */
     public static void main(String[] args) {
-        Player p1 = new Player(1,Color.BLACK);
-        Player p2 = new Player(2,Color.WHITE);
-        Game first = new Game(p1,p2);
-        System.out.println(first.getBoard());
-        first.selectBall();
         //Position testD = new Position(0,0);
         //Position testA = new Position(5,5);
         //first.moveBall(testD, testA);
         //first.getBoard().getCase(testD).removeBall();
         /*while(true){
         first.selectBall();*/
+    	
+        Player p1 = new Player(1,Color.BLACK);
+        Player p2 = new Player(2,Color.WHITE);
+        Game first = new Game(p1,p2);
         System.out.println(first.getBoard());
+        while(true){
+        	try{
+        		first.nbBall();
+        	} catch (WrongBallSelectedException e) {
+				System.out.println("Wrong ball selected, retry...");
+				continue;
+			}
+        	System.out.println(first.getBoard());
+        	first.changeCurrentPlayer();
+        }
     }
 }
