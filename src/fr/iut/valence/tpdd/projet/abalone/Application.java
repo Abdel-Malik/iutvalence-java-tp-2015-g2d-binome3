@@ -32,6 +32,8 @@ public class Application {
 			}
         	System.out.println(first.getBoard());
         	first.changeCurrentPlayer();
+        	System.out.println("\n Turn : "+(first.getNbTurn()+1));
+        	first.increaseNbTurn();
         }
     }
 }

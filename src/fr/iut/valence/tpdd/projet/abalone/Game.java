@@ -102,10 +102,18 @@ public class Game {
     	if(numberOfBall == 1){
 			selectOneBall();
     	}
+    	if(numberOfBall == 2){
+    		selectTwoBalls();
+    	}
     }
     
     
-    /**
+    private void selectTwoBalls() {
+		
+		
+	}
+
+	/**
      * @throws WrongBallSelectedException
      */
     public void selectOneBall() throws WrongBallSelectedException{ 
@@ -128,10 +136,10 @@ public class Game {
 	    	movePossible = new Move(begin, this);
 	    	
 	    	if(movePossible.getMovePos() == 0){
-	    		System.out.println("Aucun dÃ©placement possible, choisissez une autre boule");
+	    		System.out.println("Aucun déplacement possible, choisissez une autre boule");
 	    	}
 	    	else{
-	    		System.out.println("DÃ©placement possible : ");
+	    		System.out.println("Déplacement possible : ");
 	    		for(int a=0;a< movePossible.getMovePos();a++){
 	    			System.out.println(movePossible.getMovingPossibility(a));
 	    		}
@@ -152,7 +160,7 @@ public class Game {
      * @param start The start position of the ball
      * @param end The final position of the ball
      */
-    public void moveBall(Position start, Position end) {
+    private void moveBall(Position start, Position end) {
     	if(this.gameBoard.getCase(start).getBall() == Color.OTHER){
     		System.out.println("Aucune boule");
     	}
