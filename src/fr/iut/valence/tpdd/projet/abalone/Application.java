@@ -24,6 +24,8 @@ public class Application {
         Game first = new Game(p1,p2);
         System.out.println(first.getBoard());
         while(true){
+        	System.out.println("\nTurn : "+(first.getNbTurn()+1)+"\nPlayer "+first.getCurrentPlayer().getPlayerNumber());
+        	first.increaseNbTurn();
         	try{
         		first.nbBall();
         	} catch (WrongBallSelectedException e) {
@@ -32,8 +34,6 @@ public class Application {
 			}
         	System.out.println(first.getBoard());
         	first.changeCurrentPlayer();
-        	System.out.println("\n Turn : "+(first.getNbTurn()+1));
-        	first.increaseNbTurn();
         }
     }
 }
