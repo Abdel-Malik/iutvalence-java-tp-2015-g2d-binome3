@@ -19,21 +19,10 @@ public class Application {
         /*while(true){
         first.selectBall();*/
     	
-        Player p1 = new Player(1,Color.BLACK);
-        Player p2 = new Player(2,Color.WHITE);
+        Player p1 = new Player(1,Color.WHITE);
+        Player p2 = new Player(2,Color.BLACK);
         Game first = new Game(p1,p2);
-        System.out.println(first.getBoard());
-        while(true){
-        	System.out.println("\nTurn : "+(first.getNbTurn()+1)+"\nPlayer "+first.getCurrentPlayer().getPlayerNumber());
-        	first.increaseNbTurn();
-        	try{
-        		first.nbBall();
-        	} catch (WrongBallSelectedException e) {
-				System.out.println("Wrong ball selected, retry...");
-				continue;
-			}
-        	System.out.println(first.getBoard());
-        	first.changeCurrentPlayer();
-        }
+		first.launchGame();
+		
     }
 }

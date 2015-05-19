@@ -27,9 +27,16 @@ public class Board {
      * @see Position
      */
     private void boardInitialization() {
+    	int y;
         for (int rowNumber = 0; rowNumber < BOARD_WIDTH; rowNumber++) {
             for (int columnNumber = 0; columnNumber < BOARD_WIDTH; columnNumber++) {
-                this.board[rowNumber][columnNumber] = new Case(new Position(rowNumber, columnNumber));
+            	if(rowNumber > 4){
+            		y = columnNumber+(rowNumber-4);
+            	}
+            	else{
+            		y = columnNumber;
+            	}
+                this.board[rowNumber][columnNumber] = new Case(new Position(rowNumber, y));
                 if(rowNumber < 3){
                 	this.board[rowNumber][columnNumber].putBall(Color.WHITE);
                 }

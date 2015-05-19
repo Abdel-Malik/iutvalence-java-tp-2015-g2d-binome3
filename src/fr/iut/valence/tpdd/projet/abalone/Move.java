@@ -45,7 +45,11 @@ public class Move {
 	private Game currentGame;
 	
 	
-	public Move(Position ball, Game game){
+	/** Constructor of the classe Move
+	 * @param ball the ball to move
+	 * @param game the game 
+	 */
+	public Move(Case ball, Game game){
 		this.relativePositionEmpty = new Position[MAXIMUM_NUMBER_POSITION];
 		this.relativePosSameColor = new Position[MAXIMUM_NUMBER_POSITION];
 		this.relativePosEnnemy = new Position[MAXIMUM_NUMBER_POSITION];
@@ -54,7 +58,7 @@ public class Move {
 		int indexOther = 0;
 		this.currentGame = game;
 		for(int numberPosition = 0; numberPosition < MAXIMUM_NUMBER_POSITION; numberPosition++){
-			Position currentTry = new Position(ball.getAbscissa()+ABSOLUTE_POSITION[numberPosition].getAbscissa(),ball.getOrdinate()+ABSOLUTE_POSITION[numberPosition].getOrdinate());
+			Position currentTry = new Position(ball.getPosition().getAbscissa()+ABSOLUTE_POSITION[numberPosition].getAbscissa(),ball.getPosition().getOrdinate()+ABSOLUTE_POSITION[numberPosition].getOrdinate());
 			if(checkIfEmpty(numberPosition, ball)){
 				this.relativePositionEmpty[indexEmpty]= currentTry;
 				indexEmpty++;
@@ -79,12 +83,20 @@ public class Move {
 	 * @param ball
 	 * @return
 	 */
-	private boolean checkIfEmpty(int nbPos, Position ball){
-		if(((ball.getAbscissa()+ABSOLUTE_POSITION[nbPos].getAbscissa()) >= 0) && ((ball.getAbscissa()+ABSOLUTE_POSITION[nbPos].getAbscissa()) < Board.BOARD_WIDTH)){
-			if(((ball.getOrdinate()+ABSOLUTE_POSITION[nbPos].getOrdinate()) >= 0) && ((ball.getOrdinate()+ABSOLUTE_POSITION[nbPos].getOrdinate()) < Board.BOARD_WIDTH)){ 
-				if(this.currentGame.getBoard().getCase(new Position((ball.getAbscissa()+ABSOLUTE_POSITION[nbPos].getAbscissa()),(ball.getOrdinate()+ABSOLUTE_POSITION[nbPos].getOrdinate()))).getBall() == Color.OTHER){
-					return true;
-				}
+	
+	private boolean inTheBoard(int nbPos, Case ball){
+		if(((ball.getPosition().getAbscissa()+ABSOLUTE_POSITION[nbPos].getAbscissa()) >= 0) && ((ball.getPosition().getAbscissa()+ABSOLUTE_POSITION[nbPos].getAbscissa()) < Board.BOARD_WIDTH)){
+			if(((ball.getPosition().getOrdinate()+ABSOLUTE_POSITION[nbPos].getOrdinate()) >= 0) && ((ball.getPosition().getOrdinate()+ABSOLUTE_POSITION[nbPos].getOrdinate()) < Board.BOARD_WIDTH)){ 
+			return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean checkIfEmpty(int nbPos, Case ball){
+		if(inTheBoard(nbPos,ball)){
+			if(this.currentGame.getBoard().getCase(new Position((ball.getPosition().getAbscissa()+ABSOLUTE_POSITION[nbPos].getAbscissa()),(ball.getPosition().getOrdinate()+ABSOLUTE_POSITION[nbPos].getOrdinate()))).getBall() == Color.OTHER){
+				return true;
 			}
 		}
 		return false;
@@ -96,18 +108,28 @@ public class Move {
 	 * @param ball
 	 * @return
 	 */
-	private boolean checkIfSameColor(int nbPos, Position ball){
-		if(this.currentGame.getBoard().getCase(new Position((ball.getAbscissa()+ABSOLUTE_POSITION[nbPos].getAbscissa()),(ball.getOrdinate()+ABSOLUTE_POSITION[nbPos].getOrdinate()))).getBall() == this.currentGame.getCurrentPlayer().getPlayerColor()){
-					return true;
+	private boolean checkIfSameColor(int nbPos, Case ball){
+		if(inTheBoard(nbPos,ball)){
+			if(this.currentGame.getBoard().getCase(new Position((ball.getPosition().getAbscissa()+ABSOLUTE_POSITION[nbPos].getAbscissa()),(ball.getPosition().getOrdinate()+ABSOLUTE_POSITION[nbPos].getOrdinate()))).getBall() == this.currentGame.getCurrentPlayer().getPlayerColor()){
+				return true;
+			}
 		}
 		return false;
 	}
-	
-	private boolean checkIfEnnemyColor(int nbPos, Position ball){
-		if(this.currentGame.getBoard().getCase(new Position((ball.getAbscissa()+ABSOLUTE_POSITION[nbPos].getAbscissa()),(ball.getOrdinate()+ABSOLUTE_POSITION[nbPos].getOrdinate()))).getBall() != this.currentGame.getCurrentPlayer().getPlayerColor()){
-			if(this.currentGame.getBoard().getCase(new Position((ball.getAbscissa()+ABSOLUTE_POSITION[nbPos].getAbscissa()),(ball.getOrdinate()+ABSOLUTE_POSITION[nbPos].getOrdinate()))).getBall() != Color.OTHER){
-				if(this.currentGame.getBoard().getCase(new Position((ball.getAbscissa()+ABSOLUTE_POSITION[nbPos].getAbscissa()),(ball.getOrdinate()+ABSOLUTE_POSITION[nbPos].getOrdinate()))).getBall() != Color.VOID){
-					return true;
+
+	/**
+	 * 
+	 * @param nbPos
+	 * @param ball
+	 * @return
+	 */
+	private boolean checkIfEnnemyColor(int nbPos, Case ball){
+		if(inTheBoard(nbPos,ball)){
+			if(this.currentGame.getBoard().getCase(new Position((ball.getPosition().getAbscissa()+ABSOLUTE_POSITION[nbPos].getAbscissa()),(ball.getPosition().getOrdinate()+ABSOLUTE_POSITION[nbPos].getOrdinate()))).getBall() != this.currentGame.getCurrentPlayer().getPlayerColor()){
+				if(this.currentGame.getBoard().getCase(new Position((ball.getPosition().getAbscissa()+ABSOLUTE_POSITION[nbPos].getAbscissa()),(ball.getPosition().getOrdinate()+ABSOLUTE_POSITION[nbPos].getOrdinate()))).getBall() != Color.OTHER){
+					if(this.currentGame.getBoard().getCase(new Position((ball.getPosition().getAbscissa()+ABSOLUTE_POSITION[nbPos].getAbscissa()),(ball.getPosition().getOrdinate()+ABSOLUTE_POSITION[nbPos].getOrdinate()))).getBall() != Color.VOID){
+						return true;
+					}
 				}
 			}
 		}
@@ -121,11 +143,21 @@ public class Move {
 		return this.relativePosSameColor[a];
 	}
 	
+	public Position getEnnemyPosition(int a){
+		return this.relativePosEnnemy[a];
+	}
+	
 	public Position[] getTab(){
     	return this.relativePositionEmpty;
 	}
 	
 	public int getMovePos(){
 		return this.currentMovingPossibility;
+	}
+	public int getfriendlyPos(){
+		return this.currentSameColor;
+	}
+	public int getEnnemyPos(){
+		return this.currentEnemyColor;
 	}
 }

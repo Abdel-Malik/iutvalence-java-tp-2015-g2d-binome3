@@ -96,7 +96,7 @@ public class Game {
      * Choose how many balls you want to move. 
      * @throws WrongBallSelectedException
      */
-    public void nbBall() throws WrongBallSelectedException{ 
+    public void nbBall() throws WrongBallSelectedException, WrongDeplacementChooseException{ 
     	System.out.println("How many ball would you move ?");
     	int numberOfBall = nbBallMoving.nextInt();
     	if(numberOfBall == 1){
@@ -112,7 +112,7 @@ public class Game {
      * Take abscissa and ordinate.
      * @return position
      */
-    private Position selectABall(){
+    private Case selectABall() {
     	Position ballSelected;
     	
     	System.out.println("\n\nAbscissa choice :");
@@ -120,10 +120,14 @@ public class Game {
 
     	System.out.println("Ordinate choice :");
     	int bY = getCoordinatesY.nextInt();
+    	if( (int)(bX-65) <= 4 ){
+    		ballSelected = new Position((int) (bX-65),(bY-1));
+    	}
+    	else{
+    		ballSelected = new Position((int) (bX-65),((bY-1))-((int) (bX-65))+4);
+    	}
     	
-    	ballSelected = new Position((int) (bX-65),(bY-1));
-    	
-    	return ballSelected;
+    	return this.gameBoard.getCase(ballSelected);
     }
     
     
@@ -132,13 +136,14 @@ public class Game {
 	 * 
      * @throws WrongBallSelectedException
      */
-    private void selectOneBall() throws WrongBallSelectedException{ 
+    private void selectOneBall() throws WrongBallSelectedException, WrongDeplacementChooseException{ 
     	Move movePossible;
-    	Position begin;
+    	Case begin;
+    	Case end;
     	do{
 	    	begin = this.selectABall();
 	    	
-	    	if(this.gameBoard.getCase(begin).getBall() != this.currentPlayer.getPlayerColor()){
+	    	if(begin.getBall() != this.currentPlayer.getPlayerColor()){
 	    		throw new WrongBallSelectedException();
 	    	}
 	    	
@@ -146,17 +151,21 @@ public class Game {
 	    	movePossible = new Move(begin, this);
 	    	
 	    	if(movePossible.getMovePos() == 0){
-	    		System.out.println("Aucun déplacement possible, choisissez une autre boule");
+	    		System.out.println("Aucun deplacement possible, choisissez une autre boule");
 	    	}
 	    	else{
-	    		System.out.println("Déplacement possible : ");
+	    		System.out.println("Deplacement possible : ");
 	    		for(int a=0;a< movePossible.getMovePos();a++){
 	    			System.out.println(movePossible.getMovingPossibility(a));
-	    			System.out.println("Boules même couleurs : ");
 	    		}
-		    		for(int a=0;a<2;a++){
+    			System.out.println("Boules meme couleurs : ");
+		    		for(int a=0;a<movePossible.getfriendlyPos();a++){
 		    			System.out.println(movePossible.getSameBallPosition(a));
 	    		}
+		    	System.out.println("Boules adverses  : ");
+		    	for(int a=0;a<movePossible.getEnnemyPos();a++){
+		    		System.out.println(movePossible.getEnnemyPosition(a));    		
+		    		}
 	    	}
     	}while(movePossible.getMovePos() == 0);
     	
@@ -165,29 +174,49 @@ public class Game {
 	
 	    	System.out.println("Ordinate choice :");
 	    	int eY = getCoordinatesY.nextInt();
+
+	    	if( (int)(eX-65) <= 4 ){
+	    		end = this.gameBoard.getCase(new Position((int) (eX-65),(eY-1)));
+	    	}
+	    	else{
+	    		end = this.gameBoard.getCase(new Position((int) (eX-65),((eY-1))-((int) (eX-65))+4));
+	    	}
 	    	
-	    	Position end = new Position((int) (eX-65),(eY-1));
-	        this.moveBall(begin, end);
+	    	if(!deplacementCorrect(end, movePossible)){
+	    		throw new WrongDeplacementChooseException();
+	    	}
+	    	else{
+	    		this.moveBall(begin, end);
+	    	}
+    }
+    
+    public boolean deplacementCorrect(Case caseAVerifier, Move movePossible){
+    	for(int index = 0; index < movePossible.getMovePos();index++){
+    		if(caseAVerifier.getPosition().getAbscissa() != movePossible.getMovingPossibility(index).getAbscissa() || caseAVerifier.getPosition().getOrdinate() != movePossible.getMovingPossibility(index).getOrdinate()){
+    			return false;
+    		}
+    	}
+    	return true;
     }
     
     
     private void selectTwoBalls() throws WrongBallSelectedException{
     	Move movePossible;
-    	Position ballOne;
+    	Case ballOne;
     	do{
 	    	ballOne = this.selectABall();
 	    	
-	    	if(this.gameBoard.getCase(ballOne).getBall() != this.currentPlayer.getPlayerColor()){
+	    	if(ballOne.getBall() != this.currentPlayer.getPlayerColor()){
 	    		throw new WrongBallSelectedException();
 	    	}
 	    	
 	    	movePossible = new Move(ballOne, this);
 	    	
 	    	if(movePossible.getMovePos() == 0){
-	    		System.out.println("Aucun déplacement possible, choisissez une autre boule");
+	    		System.out.println("Aucun dï¿½placement possible, choisissez une autre boule");
 	    	}
 	    	else{
-	    		System.out.println("Déplacement possible : ");
+	    		System.out.println("Dï¿½placement possible : ");
 	    		for(int a=0;a< movePossible.getMovePos();a++){
 	    			System.out.println(movePossible.getMovingPossibility(a));
 	    		}
@@ -202,14 +231,33 @@ public class Game {
      * @param start The start position of the ball
      * @param end The final position of the ball
      */
-    private void moveBall(Position start, Position end) {
-    	if(this.gameBoard.getCase(start).getBall() == Color.OTHER){
+    private void moveBall(Case start, Case end) {
+    	if(start.getBall() == Color.OTHER){
     		System.out.println("Aucune boule");
     	}
     	else{
-    		this.gameBoard.getCase(end).putBall(this.gameBoard.getCase(start).getBall());
-    		this.gameBoard.getCase(start).removeBall();
+    		end.putBall(start.getBall());
+    		start.removeBall();
     	}
+    }
+    
+    public void launchGame(){
+    	System.out.println(getBoard());
+        while(true){
+        	System.out.println("\nTurn : "+(getNbTurn()+1)+"\nPlayer "+getCurrentPlayer().getPlayerNumber() + "\ncolor - "+getCurrentPlayer().getPlayerColor());
+        	try{
+        		nbBall();
+        	} catch (WrongBallSelectedException e) {
+				System.out.println("Wrong ball selected isn't your color, retry...");
+				continue;
+			} catch (WrongDeplacementChooseException e){
+				System.out.println("Wrong destination choosen, retry...");
+				continue;
+			}
+        	increaseNbTurn();
+        	System.out.println(getBoard());
+        	changeCurrentPlayer();
+        }
     }
 
 }
